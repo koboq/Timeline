@@ -1,2 +1,57 @@
-# Timeline
-ã‚·ãƒ³ãƒ—ãƒ«ã§é«˜é€Ÿãªã‚¤ãƒ™ãƒ³ãƒˆã‚¿ã‚¤ãƒ ãƒ©ã‚¤ãƒ³ï¼ˆC++ï¼‰ã€‚æ™‚åˆ»æŒ‡å®šã®ã‚¤ãƒ™ãƒ³ãƒˆç™»éŒ²ãƒ»å†ç”Ÿãƒ»ãƒ«ãƒ¼ãƒ—ãƒ»ã‚°ãƒ­ãƒ¼ãƒãƒ«ï¼å€‹åˆ¥ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã«å¯¾å¿œã€‚Visual Studioå¯¾å¿œãƒ»MITãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã€‚ / A simple and fast C++ timeline for scheduled events. Supports per-event/global callbacks, looping, and precise dispatch. Visual Studio ready. MIT-licensed.
+# Modigs Timeline (C++)
+
+ƒVƒ“ƒvƒ‹‚Å‚‘¬‚ÈƒCƒxƒ“ƒgƒ^ƒCƒ€ƒ‰ƒCƒ“iC++jB  
+w’è‚ÌƒCƒxƒ“ƒg“o˜^EÄ¶Eƒ‹[ƒvEƒOƒ[ƒoƒ‹^ŒÂ•ÊƒR[ƒ‹ƒoƒbƒN‚É‘Î‰B  
+Visual Studio‘Î‰EMITƒ‰ƒCƒZƒ“ƒXB
+
+A simple and fast event timeline library in C++.  
+Supports time-based event registration, playback, looping, and both global and per-event callbacks.  
+Designed for Visual Studio. Released under the MIT License.
+
+---
+
+## “Á’¥ / Features
+- `AddEvent(time, id, params, callback)` ‚ÅƒCƒxƒ“ƒg“o˜^  
+  Register events with `AddEvent(time, id, params, callback)`
+- `Play/Pause/Stop/Reset`A`SetLoop(true/false)`  
+  Control playback with `Play`, `Pause`, `Stop`, `Reset`, and `SetLoop(true/false)`
+- `Update(deltaTimeSec)` ‚ÅŠÔis•‹æŠÔ“àƒCƒxƒ“ƒg‚ğˆÀ‘S‚É”­‰Î  
+  Advance time using `Update(deltaTimeSec)` to safely trigger events within the interval
+- ŒÂ•ÊƒR[ƒ‹ƒoƒbƒN—Dæ ¨ –³‚¯‚ê‚ÎƒOƒ[ƒoƒ‹ƒR[ƒ‹ƒoƒbƒN  
+  Per-event callbacks take priority; if none are set, the global callback is used
+
+---
+
+## g‚¢•ûiŠT—vj / Usage Example
+```cpp
+#include "timeline/timeline.h"
+using namespace Modigs;
+
+Timeline tl;
+tl.SetGlobalCallback([](int id, const std::vector<double>& p){ /* ... */ });
+tl.AddEvent(0.5,  1, {1.0, 2.0});
+tl.AddEvent(1.0, 42, {}, [](int id, const auto&){ /* ŒÂ•Êˆ— / per-event callback */ });
+tl.SetLoop(false);
+tl.Play();
+tl.Update(0.2); // cƒQ[ƒ€/ƒAƒvƒŠ‚ÌƒtƒŒ[ƒ€‚ÅŒÄ‚Ô / call this per frame
+
+tl.Pause(); // cˆê’â~APlay‚ğŒÄ‚Ô‚Æ~‚ß‚½‚Æ‚±‚ë‚©‚çÄŠJ‚³‚ê‚é / pause and resume
+tl.Stop();  // c’â~APlay‚ğŒÄ‚Ô‚ÆÅ‰‚©‚çn‚Ü‚é / stop and restart from beginning
+tl.Reset(); // cíœAƒ^ƒCƒ€ƒ‰ƒCƒ“‚ªíœ‚³‚ê‚é / clear all events
+
+
+
+## “®ìŠÂ‹« / Environment
+- Visual Studio 2022iC++17 ˆÈã‚ğ„§j
+  Visual Studio 2022 (C++17 or later recommended)
+- timeline.h / timeline.cpp ‚ğƒvƒƒWƒFƒNƒg‚É’Ç‰Á
+  Add timeline.h and timeline.cpp to your project
+
+## ƒ‰ƒCƒZƒ“ƒX / License
+MIT License - Ú×‚Í LICENSE ‚ğQÆB
+MIT License - see the LICENSE file for details.
+
+## ‚»‚Ì‘¼ / Notes
+- –{ƒŠƒ|ƒWƒgƒŠ‚Í Œ´‘¥ƒTƒ|[ƒg‚È‚µ ‚Å‚·iIssues ‚ÍƒoƒO•ñ—p‚Ì‚İjB
+This repository is provided as-is, with no official support. Please use Issues for bug reports only.
+
